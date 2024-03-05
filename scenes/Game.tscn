@@ -1,0 +1,48 @@
+[gd_scene load_steps=8 format=3 uid="uid://ctttgpei12vtv"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_a2gtn"]
+sky_top_color = Color(0.321569, 0.658824, 1, 1)
+sky_horizon_color = Color(0.580392, 0.737255, 0.880392, 1)
+ground_bottom_color = Color(0, 0.290196, 0.521569, 1)
+ground_horizon_color = Color(0.580392, 0.737255, 0.880392, 1)
+
+[sub_resource type="Sky" id="Sky_yhm0u"]
+sky_material = SubResource("ProceduralSkyMaterial_a2gtn")
+
+[sub_resource type="Environment" id="Environment_6rin4"]
+background_mode = 2
+sky = SubResource("Sky_yhm0u")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="Gradient" id="Gradient_hmrfv"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(1, 0, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_a0adb"]
+gradient = SubResource("Gradient_hmrfv")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hrfw8"]
+albedo_texture = SubResource("GradientTexture1D_a0adb")
+
+[sub_resource type="BoxMesh" id="BoxMesh_3gkm3"]
+material = SubResource("StandardMaterial3D_hrfw8")
+size = Vector3(10, 1, 10)
+
+[node name="Game" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_6rin4")
+
+[node name="Light" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1000, 0)
+light_energy = 0.0
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+current = true
+
+[node name="Level1" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Level1"]
+mesh = SubResource("BoxMesh_3gkm3")
