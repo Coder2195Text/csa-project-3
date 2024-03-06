@@ -15,19 +15,17 @@ sky = SubResource("Sky_yhm0u")
 tonemap_mode = 2
 glow_enabled = true
 
-[sub_resource type="Gradient" id="Gradient_hmrfv"]
-offsets = PackedFloat32Array(1)
-colors = PackedColorArray(1, 0, 1, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_a0adb"]
-gradient = SubResource("Gradient_hmrfv")
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hrfw8"]
-albedo_texture = SubResource("GradientTexture1D_a0adb")
 
 [sub_resource type="BoxMesh" id="BoxMesh_3gkm3"]
 material = SubResource("StandardMaterial3D_hrfw8")
 size = Vector3(10, 1, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_n1of8"]
+size = Vector3(10, 1, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_k5vjk"]
+size = Vector3(0.5, 2, 0.5)
 
 [node name="Game" type="Node3D"]
 
@@ -38,11 +36,25 @@ environment = SubResource("Environment_6rin4")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1000, 0)
 light_energy = 0.0
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
-current = true
-
 [node name="Level1" type="Node3D" parent="."]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Level1"]
+[node name="StaticBody3D" type="StaticBody3D" parent="Level1"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Level1/StaticBody3D"]
+gi_mode = 0
 mesh = SubResource("BoxMesh_3gkm3")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level1/StaticBody3D"]
+shape = SubResource("BoxShape3D_n1of8")
+
+[node name="Player" type="Player" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.45015, 0)
+motion_mode = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
+shape = SubResource("BoxShape3D_k5vjk")
+
+[node name="Camera3D" type="Camera3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+current = true
