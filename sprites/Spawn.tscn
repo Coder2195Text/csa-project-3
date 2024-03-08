@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://bjdyddpain5xj"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c8lwy"]
+metallic = 0.59
+
+[sub_resource type="BoxMesh" id="BoxMesh_8ijfc"]
+material = SubResource("StandardMaterial3D_c8lwy")
+size = Vector3(1.5, 0.1, 1.5)
+
+[node name="Spawn" type="StaticBody3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_8ijfc")

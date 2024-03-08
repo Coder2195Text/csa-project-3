@@ -38,24 +38,24 @@ impl ICharacterBody2D for Player {
         let input = Input::singleton();
        
         if input.is_action_pressed("forward".into()) {
-            velocity += -base.get_transform().basis.col_c() * 2.0;
+            velocity += -base.get_transform().basis.col_c() * 6.0;
         }
         if input.is_action_pressed("back".into()) {
-            velocity += base.get_transform().basis.col_c() * 2.0;
+            velocity += base.get_transform().basis.col_c() * 6.0;
         }
         if input.is_action_pressed("left".into()) {
-            velocity += -base.get_transform().basis.col_a() * 2.0;
+            velocity += -base.get_transform().basis.col_a() * 6.0;
         }
         if input.is_action_pressed("right".into()) {
-            velocity += base.get_transform().basis.col_a() * 2.0;
+            velocity += base.get_transform().basis.col_a() * 6.0;
         }
         if input.is_action_pressed("jump".into()) && base.is_on_floor() {
-            velocity.y = 100.0;
+            velocity.y = 10.0;
         }
 
         
         velocity.y -= 15.0 * delta as f32;
         base.set_velocity(velocity);
-        base.move_and_collide(velocity * delta as f32);
+        base.move_and_slide();
     }
 }
