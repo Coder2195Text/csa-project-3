@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://crsh4eywfh7li"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_2lsvf"]
+friction = 0.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hrfw8"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_by8hq"]
+material = SubResource("StandardMaterial3D_hrfw8")
+size = Vector3(2, 0.5, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rcms7"]
+size = Vector3(2, 0.5, 2)
+
+[node name="NormalPlatform" type="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.417966, 0.885872, -16.2044)
+collision_layer = 4
+physics_material_override = SubResource("PhysicsMaterial_2lsvf")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+gi_mode = 0
+mesh = SubResource("BoxMesh_by8hq")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_rcms7")

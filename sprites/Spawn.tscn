@@ -1,13 +1,24 @@
-[gd_scene load_steps=3 format=3 uid="uid://bjdyddpain5xj"]
+[gd_scene load_steps=5 format=3 uid="uid://bjdyddpain5xj"]
+
+[ext_resource type="Texture2D" uid="uid://mtyptplpwuam" path="res://textures/respawn.png" id="1_2jxpg"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c8lwy"]
+albedo_texture = ExtResource("1_2jxpg")
 metallic = 0.59
 
 [sub_resource type="BoxMesh" id="BoxMesh_8ijfc"]
 material = SubResource("StandardMaterial3D_c8lwy")
 size = Vector3(1.5, 0.1, 1.5)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_hqm7l"]
+size = Vector3(1.5, 0.1, 1.5)
+
 [node name="Spawn" type="StaticBody3D"]
+collision_layer = 16
+collision_mask = 0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_8ijfc")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_hqm7l")

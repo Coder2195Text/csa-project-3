@@ -50,11 +50,11 @@ impl ICharacterBody2D for Player {
             velocity += base.get_transform().basis.col_a() * 6.0;
         }
         if input.is_action_pressed("jump".into()) && base.is_on_floor() {
-            velocity.y = 10.0;
+            velocity.y = 16.0;
         }
 
         
-        velocity.y -= 15.0 * delta as f32;
+        velocity.y -= 30.0 * delta as f32;
         base.set_velocity(velocity);
         base.move_and_slide();
     }

@@ -1,19 +1,29 @@
-[gd_scene load_steps=12 format=3 uid="uid://ctttgpei12vtv"]
+[gd_scene load_steps=11 format=3 uid="uid://ctttgpei12vtv"]
+
+[ext_resource type="PackedScene" uid="uid://bjdyddpain5xj" path="res://sprites/Spawn.tscn" id="1_avimj"]
+[ext_resource type="PackedScene" uid="uid://crsh4eywfh7li" path="res://sprites/NormalPlatform.tscn" id="2_gvk0d"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_a2gtn"]
 sky_top_color = Color(0.321569, 0.658824, 1, 1)
-sky_horizon_color = Color(0.580392, 0.737255, 0.880392, 1)
+sky_horizon_color = Color(0.584314, 0.741176, 0.882353, 1)
+sky_curve = 5.58501
+sky_energy_multiplier = 1.1
 ground_bottom_color = Color(0, 0.290196, 0.521569, 1)
 ground_horizon_color = Color(0.580392, 0.737255, 0.880392, 1)
+ground_curve = 0.113137
 
 [sub_resource type="Sky" id="Sky_yhm0u"]
 sky_material = SubResource("ProceduralSkyMaterial_a2gtn")
 
 [sub_resource type="Environment" id="Environment_6rin4"]
 background_mode = 2
+background_color = Color(1, 1, 1, 1)
 sky = SubResource("Sky_yhm0u")
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 0.5
 tonemap_mode = 2
 glow_enabled = true
+glow_blend_mode = 0
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_jfwmn"]
 friction = 0.5
@@ -26,16 +36,6 @@ size = Vector3(10, 1, 10)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_n1of8"]
 size = Vector3(10, 1, 10)
-
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_2lsvf"]
-friction = 0.5
-
-[sub_resource type="BoxMesh" id="BoxMesh_by8hq"]
-material = SubResource("StandardMaterial3D_hrfw8")
-size = Vector3(2, 0.5, 2)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_rcms7"]
-size = Vector3(2, 0.5, 2)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_k5vjk"]
 size = Vector3(0.5, 2, 0.5)
@@ -51,7 +51,11 @@ light_energy = 0.0
 
 [node name="Level1" type="Node3D" parent="."]
 
+[node name="Spawn" parent="Level1" instance=ExtResource("1_avimj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
 [node name="Base" type="StaticBody3D" parent="Level1"]
+collision_layer = 4
 physics_material_override = SubResource("PhysicsMaterial_jfwmn")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Level1/Base"]
@@ -62,31 +66,17 @@ skeleton = NodePath("../..")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Level1/Base"]
 shape = SubResource("BoxShape3D_n1of8")
 
-[node name="NormalPlatform" type="StaticBody3D" parent="Level1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.417966, 0.885872, -19.0185)
-physics_material_override = SubResource("PhysicsMaterial_2lsvf")
+[node name="NormalPlatform" parent="Level1" instance=ExtResource("2_gvk0d")]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Level1/NormalPlatform"]
-gi_mode = 0
-mesh = SubResource("BoxMesh_by8hq")
+[node name="NormalPlatform2" parent="Level1" instance=ExtResource("2_gvk0d")]
+transform = Transform3D(0.672114, 0, 0, 0, 1, 0, 0, 0, 1, -0.417966, 0.885872, -23.9768)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Level1/NormalPlatform"]
-shape = SubResource("BoxShape3D_rcms7")
-
-[node name="NormalPlatform2" type="StaticBody3D" parent="Level1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.59609, 0, -11.8624)
-physics_material_override = SubResource("PhysicsMaterial_2lsvf")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Level1/NormalPlatform2"]
-gi_mode = 0
-mesh = SubResource("BoxMesh_by8hq")
-skeleton = NodePath("../..")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Level1/NormalPlatform2"]
-shape = SubResource("BoxShape3D_rcms7")
+[node name="NormalPlatform3" parent="Level1" instance=ExtResource("2_gvk0d")]
+transform = Transform3D(0.562934, 0, 0.54635, 0, 1, 0, -0.36721, 0, 0.837557, 2.18023, 0.885872, -9.15399)
 
 [node name="Player" type="Player" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.45015, 0)
+collision_mask = 4
 
 [node name="Shape" type="CollisionShape3D" parent="Player"]
 shape = SubResource("BoxShape3D_k5vjk")
