@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://bjdyddpain5xj"]
+[gd_scene load_steps=8 format=3 uid="uid://bjdyddpain5xj"]
 
 [ext_resource type="Texture2D" uid="uid://mtyptplpwuam" path="res://textures/respawn.png" id="1_2jxpg"]
 
@@ -13,8 +13,36 @@ size = Vector3(1.5, 0.1, 1.5)
 [sub_resource type="BoxShape3D" id="BoxShape3D_hqm7l"]
 size = Vector3(1.5, 0.1, 1.5)
 
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_sl5l8"]
+lifetime_randomness = 0.31
+particle_flag_align_y = true
+emission_shape = 1
+emission_sphere_radius = 1.0
+angle_min = -720.0
+angle_max = 357.0
+velocity_pivot = Vector3(0, 10, 0)
+direction = Vector3(0, 1, 0)
+spread = 20.0
+initial_velocity_min = 5.0
+initial_velocity_max = 10.0
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+radial_velocity_min = -1.0
+radial_velocity_max = 1.0
+gravity = Vector3(0, -10, 0)
+color = Color(0.92549, 0.219608, 0.192157, 1)
+hue_variation_min = -1.0
+hue_variation_max = 1.0
+anim_speed_max = 16.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jevog"]
+vertex_color_use_as_albedo = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_7drpd"]
+material = SubResource("StandardMaterial3D_jevog")
+size = Vector2(0.1, 0.1)
+
 [node name="Spawn" type="Spawn"]
-level = 0
 collision_layer = 16
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
@@ -22,5 +50,16 @@ mesh = SubResource("BoxMesh_8ijfc")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_hqm7l")
+
+[node name="Confetti" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.365975, 0)
+emitting = false
+amount = 120
+one_shot = true
+randomness = 1.0
+collision_base_size = 0.0
+visibility_aabb = AABB(-4, -6.75012, -4, 8, 13.5002, 8)
+process_material = SubResource("ParticleProcessMaterial_sl5l8")
+draw_pass_1 = SubResource("PlaneMesh_7drpd")
 
 [connection signal="body_entered" from="." to="." method="on_touched"]

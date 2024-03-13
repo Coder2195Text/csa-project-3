@@ -68,10 +68,16 @@ shape = SubResource("BoxShape3D_n1of8")
 [node name="NormalPlatform" parent="Level1" instance=ExtResource("2_gvk0d")]
 
 [node name="NormalPlatform2" parent="Level1" instance=ExtResource("2_gvk0d")]
-transform = Transform3D(0.672114, 0, 0, 0, 1, 0, 0, 0, 1, -0.417966, 0.885872, -23.9768)
+transform = Transform3D(0.544983, -0.585255, 0, 0.393358, 0.810849, 0, 0, 0, 1, -0.417966, 0.885872, -21.8494)
 
 [node name="NormalPlatform3" parent="Level1" instance=ExtResource("2_gvk0d")]
 transform = Transform3D(0.562934, 0, 0.54635, 0, 1, 0, -0.36721, 0, 0.837557, 2.18023, 0.885872, -9.15399)
+
+[node name="NormalPlatform4" parent="Level1" instance=ExtResource("2_gvk0d")]
+transform = Transform3D(0.562934, 0, 0.54635, 0, 1, 0, -0.36721, 0, 0.837557, 2.18023, 1.69433, -25.8936)
+
+[node name="NormalPlatform5" parent="Level1" instance=ExtResource("2_gvk0d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.835932, 1.77174, -30.0083)
 
 [node name="Player" parent="." instance=ExtResource("3_7777k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.65493, 0)

@@ -66,18 +66,30 @@ impl ICharacterBody2D for Player {
 #[godot_api]
 impl Player {
     #[func]
-    pub fn set_spawn(&mut self, spawn: Gd<Spawn>) {
-        let level;
+    pub fn set_spawn(&mut self, mut spawn: Gd<Spawn>) -> bool {
         if let Some(mut last_spawn) = self.get_last_spawn() {
-            level = last_spawn
+            if spawn == last_spawn {
+                return false;
+            }
+            let level = last_spawn
                 .call("get_level".into(), &[])
                 .try_to::<i32>()
                 .unwrap();
-            godot_print!("Spawned at level: {}", level);
-        } else {
-            return;
-        }
 
-        self.last_spawn = spawn.into();
+            let new_level = spawn
+                .call("get_level".into(), &[])
+                .try_to::<i32>()
+                .unwrap();
+
+            if level >= new_level {
+                return false;
+            }
+            
+        }
+        
+
+        
+        self.last_spawn = Some(spawn);   
+        true
     }
 }
