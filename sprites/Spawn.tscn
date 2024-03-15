@@ -16,10 +16,10 @@ size = Vector3(1.5, 0.1, 1.5)
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_sl5l8"]
 lifetime_randomness = 0.31
 particle_flag_align_y = true
+particle_flag_damping_as_friction = true
 emission_shape = 1
 emission_sphere_radius = 1.0
-angle_min = -720.0
-angle_max = 357.0
+angle_max = 360.0
 velocity_pivot = Vector3(0, 10, 0)
 direction = Vector3(0, 1, 0)
 spread = 20.0
@@ -30,13 +30,18 @@ angular_velocity_max = 180.0
 radial_velocity_min = -1.0
 radial_velocity_max = 1.0
 gravity = Vector3(0, -10, 0)
+radial_accel_max = 10.0
+scale_min = 0.5
+scale_max = 2.0
 color = Color(0.92549, 0.219608, 0.192157, 1)
 hue_variation_min = -1.0
 hue_variation_max = 1.0
 anim_speed_max = 16.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jevog"]
+transparency = 1
 vertex_color_use_as_albedo = true
+metallic = 0.5
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_7drpd"]
 material = SubResource("StandardMaterial3D_jevog")
@@ -52,9 +57,9 @@ mesh = SubResource("BoxMesh_8ijfc")
 shape = SubResource("BoxShape3D_hqm7l")
 
 [node name="Confetti" type="GPUParticles3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.365975, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.554177, 0)
 emitting = false
-amount = 120
+amount = 200
 one_shot = true
 randomness = 1.0
 collision_base_size = 0.0

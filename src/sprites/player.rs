@@ -37,6 +37,11 @@ impl ICharacterBody2D for Player {
     }
 
     fn physics_process(&mut self, delta: f64) {
+        let pos = self.base().get_global_position();
+        if pos.y < -60.0 {
+            self.die();
+        }
+
         let mut base = self.base_mut();
         let mut velocity = Vector3::new(0.0, base.get_velocity().y, 0.0);
         let input = Input::singleton();
@@ -76,20 +81,34 @@ impl Player {
                 .try_to::<i32>()
                 .unwrap();
 
-            let new_level = spawn
-                .call("get_level".into(), &[])
-                .try_to::<i32>()
-                .unwrap();
+            let new_level = spawn.call("get_level".into(), &[]).try_to::<i32>().unwrap();
 
             if level >= new_level {
                 return false;
             }
-            
         }
-        
 
-        
-        self.last_spawn = Some(spawn);   
+        self.last_spawn = Some(spawn);
         true
+    }
+
+    #[func]
+    fn die(&mut self) {
+        let mut cam = self.base().get_node_as::<Camera3D>("Camera");
+        let mut death_sound = self.base().get_node_as::<AudioStreamPlayer>("DeathSound");
+        death_sound.play();
+        let pos;
+        let rot;
+        if let Some(spawn) = self.get_last_spawn() {
+            pos = spawn.get_global_position();
+            rot = spawn.get_global_rotation();
+        } else {
+            pos = Vector3::new(0.0, 1.75, 0.0);
+            rot = Vector3::new(0.0, 0.0, 0.0);
+        }
+        let mut base = self.base_mut();
+        base.set_global_position(pos);
+        base.set_global_rotation(Vector3::new(0.0, rot.y, 0.0));
+        cam.set_global_rotation(Vector3::new(rot.x, 0.0, 0.0));
     }
 }
