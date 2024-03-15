@@ -9,15 +9,20 @@ use godot::prelude::*;
 pub struct Player {
     base: Base<CharacterBody3D>,
     #[var]
-    pub last_spawn: Option<Gd<Spawn>>,
+    pub last_spawn: Vector3,
+    pub last_rotation: Vector3,
+    pub last_level: i32,
 }
 
 #[godot_api]
 impl ICharacterBody2D for Player {
+    
     fn init(base: Base<CharacterBody3D>) -> Self {
         Self {
             base,
-            last_spawn: None,
+            last_spawn: Vector3::new(0.0, 0.0, 0.0),
+            last_rotation: Vector3::new(0.0, 0.0, 0.0),
+            last_level: 0,
         }
     }
 
@@ -71,24 +76,14 @@ impl ICharacterBody2D for Player {
 #[godot_api]
 impl Player {
     #[func]
-    pub fn set_spawn(&mut self, mut spawn: Gd<Spawn>) -> bool {
-        if let Some(mut last_spawn) = self.get_last_spawn() {
-            if spawn == last_spawn {
-                return false;
-            }
-            let level = last_spawn
-                .call("get_level".into(), &[])
-                .try_to::<i32>()
-                .unwrap();
-
-            let new_level = spawn.call("get_level".into(), &[]).try_to::<i32>().unwrap();
-
-            if level >= new_level {
-                return false;
-            }
+    pub fn set_spawn(&mut self, spawn: Vector3, rotation: Vector3, level: i32) -> bool {
+        if level <= self.last_level {
+            return false;
         }
+        self.last_level = level;
 
-        self.last_spawn = Some(spawn);
+        self.last_spawn = spawn;
+        self.last_rotation = rotation;
         true
     }
 
@@ -97,18 +92,12 @@ impl Player {
         let mut cam = self.base().get_node_as::<Camera3D>("Camera");
         let mut death_sound = self.base().get_node_as::<AudioStreamPlayer>("DeathSound");
         death_sound.play();
-        let pos;
-        let rot;
-        if let Some(spawn) = self.get_last_spawn() {
-            pos = spawn.get_global_position();
-            rot = spawn.get_global_rotation();
-        } else {
-            pos = Vector3::new(0.0, 1.75, 0.0);
-            rot = Vector3::new(0.0, 0.0, 0.0);
-        }
+        let pos = self.last_spawn;
+        let rot = self.last_rotation;
+       
         let mut base = self.base_mut();
         base.set_global_position(pos);
-        base.set_global_rotation(Vector3::new(0.0, rot.y, 0.0));
-        cam.set_global_rotation(Vector3::new(rot.x, 0.0, 0.0));
+        base.set_rotation(Vector3::new(0.0, rot.y, 0.0));
+        cam.set_rotation(Vector3::new(rot.x, 0.0, 0.0));
     }
 }

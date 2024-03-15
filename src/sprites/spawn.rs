@@ -17,9 +17,10 @@ impl Spawn {
     #[func]
     fn on_touched(&mut self, body: Gd<Node3D>) {
         godot_print!("Spawned");
+        let base = self.base();
         if let Ok(mut player) = body.try_cast::<Player>() {
             let result = player
-                .call("set_spawn".into(), &[Variant::from(self.to_gd())])
+                .call("set_spawn".into(), &[Variant::from(base.get_global_position()), Variant::from(base.get_rotation()), Variant::from(self.level)])
                 .try_to::<bool>()
                 .unwrap();
             if result {
