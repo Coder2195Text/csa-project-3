@@ -203,15 +203,15 @@ mesh = SubResource("BoxMesh_by8hq")
 shape = SubResource("BoxShape3D_rcms7")
 
 [node name="Label3D" type="Label3D" parent="3D/Level1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.21077, -4)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.21077, -5)
 double_sided = false
 outline_render_priority = 0
 modulate = Color(0, 0, 0, 1)
 text = "Welcome to 
 Coder2195's Obby"
 font = ExtResource("3_x2udd")
-font_size = 80
-outline_size = 10
+font_size = 160
+outline_size = 20
 
 [node name="Level2" type="Node3D" parent="3D"]
 
