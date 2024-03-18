@@ -54,6 +54,7 @@ jump={
 3d_physics/layer_3="solid"
 3d_physics/layer_4="portal"
 3d_physics/layer_5="respawn"
+3d_physics/layer_6="force"
 
 [rendering]
 

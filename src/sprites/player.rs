@@ -16,7 +16,6 @@ pub struct Player {
 
 #[godot_api]
 impl ICharacterBody2D for Player {
-    
     fn init(base: Base<CharacterBody3D>) -> Self {
         Self {
             base,
@@ -52,19 +51,19 @@ impl ICharacterBody2D for Player {
         let input = Input::singleton();
 
         if input.is_action_pressed("forward".into()) {
-            velocity += -base.get_transform().basis.col_c() * 6.0;
+            velocity += -base.get_transform().basis.col_c() * 7.5;
         }
         if input.is_action_pressed("back".into()) {
-            velocity += base.get_transform().basis.col_c() * 6.0;
+            velocity += base.get_transform().basis.col_c() * 5.0;
         }
         if input.is_action_pressed("left".into()) {
             velocity += -base.get_transform().basis.col_a() * 6.0;
         }
         if input.is_action_pressed("right".into()) {
-            velocity += base.get_transform().basis.col_a() * 6.0;
+            velocity += base.get_transform().basis.col_a() * 5.0;
         }
         if input.is_action_pressed("jump".into()) && base.is_on_floor() {
-            velocity.y = 16.0;
+            velocity.y = 12.0;
         }
 
         velocity.y -= 30.0 * delta as f32;
@@ -94,7 +93,7 @@ impl Player {
         death_sound.play();
         let pos = self.last_spawn;
         let rot = self.last_rotation;
-       
+
         let mut base = self.base_mut();
         base.set_global_position(pos);
         base.set_rotation(Vector3::new(0.0, rot.y, 0.0));
