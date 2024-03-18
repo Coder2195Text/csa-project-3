@@ -3,13 +3,14 @@
 [ext_resource type="AudioStream" uid="uid://dn53mfqo8m4y7" path="res://sounds/failure.mp3" id="1_hxo88"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_k5vjk"]
-size = Vector3(0.5, 2, 0.5)
+size = Vector3(0.35, 1.5, 0.35)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_a0kyf"]
-radius = 0.4
+radius = 0.25
+height = 1.5
 
 [node name="Player" type="Player"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.45015, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 collision_mask = 20
 
 [node name="Shape" type="CollisionShape3D" parent="."]

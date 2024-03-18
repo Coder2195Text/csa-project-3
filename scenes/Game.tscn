@@ -1,8 +1,10 @@
-[gd_scene load_steps=25 format=3 uid="uid://ctttgpei12vtv"]
+[gd_scene load_steps=29 format=3 uid="uid://ctttgpei12vtv"]
 
 [ext_resource type="PackedScene" uid="uid://bjdyddpain5xj" path="res://sprites/Spawn.tscn" id="1_avimj"]
 [ext_resource type="AudioStream" uid="uid://dcn80hiqhfrkj" path="res://sounds/music.mp3" id="3_3vc3a"]
+[ext_resource type="PackedScene" uid="uid://crxnnhggvjm2n" path="res://sprites/DeathTile.tscn" id="3_06i5s"]
 [ext_resource type="PackedScene" uid="uid://cckwoimpsmkt2" path="res://sprites/Player.tscn" id="3_7777k"]
+[ext_resource type="FontFile" uid="uid://d4d1g6ewuwtc1" path="res://fonts/textme.ttf" id="3_x2udd"]
 [ext_resource type="Texture2D" uid="uid://bktm53fxad0jk" path="res://textures/logo.png" id="4_qeu58"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_a2gtn"]
@@ -84,6 +86,13 @@ size = Vector3(1, 15, 4)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_65ogw"]
 size = Vector3(1, 15, 4)
+
+[sub_resource type="BoxMesh" id="BoxMesh_k8jaf"]
+material = SubResource("StandardMaterial3D_rgish")
+size = Vector3(10, 0.5, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_m8sur"]
+size = Vector3(10, 0.5, 10)
 
 [node name="Root" type="Node"]
 
@@ -192,6 +201,17 @@ mesh = SubResource("BoxMesh_by8hq")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="3D/Level1/NormalPlatform6"]
 shape = SubResource("BoxShape3D_rcms7")
+
+[node name="Label3D" type="Label3D" parent="3D/Level1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.21077, -4)
+double_sided = false
+outline_render_priority = 0
+modulate = Color(0, 0, 0, 1)
+text = "Welcome to 
+Coder2195's Obby"
+font = ExtResource("3_x2udd")
+font_size = 80
+outline_size = 10
 
 [node name="Level2" type="Node3D" parent="3D"]
 
@@ -315,10 +335,225 @@ mesh = SubResource("BoxMesh_pie5y")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="3D/Level3/NeoWall2"]
 shape = SubResource("BoxShape3D_65ogw")
 
-[node name="Music" type="AudioStreamPlayer" parent="3D"]
-stream = ExtResource("3_3vc3a")
-volume_db = 1.0
-autoplay = true
+[node name="Level4" type="Node3D" parent="3D"]
+
+[node name="Base" type="StaticBody3D" parent="3D/Level4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 66, 6.5, -41.749)
+collision_layer = 4
+physics_material_override = SubResource("PhysicsMaterial_jfwmn")
+
+[node name="Spawn" parent="3D/Level4/Base" instance=ExtResource("1_avimj")]
+level = 4
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0.5, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="3D/Level4/Base"]
+gi_mode = 0
+mesh = SubResource("BoxMesh_3gkm3")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="3D/Level4/Base"]
+shape = SubResource("BoxShape3D_n1of8")
+
+[node name="NormalPlatform" type="StaticBody3D" parent="3D/Level4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 76, 6.75, -41.75)
+collision_layer = 4
+physics_material_override = SubResource("PhysicsMaterial_2lsvf")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="3D/Level4/NormalPlatform"]
+gi_mode = 0
+mesh = SubResource("BoxMesh_k8jaf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="3D/Level4/NormalPlatform"]
+shape = SubResource("BoxShape3D_m8sur")
+
+[node name="DeathRow" type="Node3D" parent="3D/Level4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 71.5, 7.05, -46.25)
+
+[node name="DeathTile" parent="3D/Level4/DeathRow" instance=ExtResource("3_06i5s")]
+
+[node name="DeathTile2" parent="3D/Level4/DeathRow" instance=ExtResource("3_06i5s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+
+[node name="DeathTile3" parent="3D/Level4/DeathRow" instance=ExtResource("3_06i5s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6)
+
+[node name="DeathTile4" parent="3D/Level4/DeathRow" instance=ExtResource("3_06i5s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
+
+[node name="DeathTile5" parent="3D/Level4/DeathRow" instance=ExtResource("3_06i5s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8)
+
+[node name="DeathRow2" type="Node3D" parent="3D/Level4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72.5, 7.05, -45.25)
+
+[node name="DeathTile" parent="3D/Level4/DeathRow2" instance=ExtResource("3_06i5s")]
+
+[node name="DeathTile2" parent="3D/Level4/DeathRow2" instance=ExtResource("3_06i5s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+
+[node name="DeathTile3" parent="3D/Level4/DeathRow2" instance=ExtResource("3_06i5s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6)
+
+[node name="DeathTile4" parent="3D/Level4/DeathRow2" instance=ExtResource("3_06i5s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
+
+[node name="DeathTile5" parent="3D/Level4/DeathRow2" instance=ExtResource("3_06i5s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8)
+
+[node name="DeathRow3" type="Node3D" parent="3D/Level4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 73.5, 7.05, -46.25)
+
+[node name="DeathTile" parent="3D/Level4/DeathRow3" instance=ExtResource("3_06i5s")]
+
+[node name="DeathTile2" parent="3D/Level4/DeathRow3" instance=ExtResource("3_06i5s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+
+[node name="DeathTile3" parent="3D/Level4/DeathRow3" instance=ExtResource("3_06i5s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6)
+
+[node name="DeathTile4" parent="3D/Level4/DeathRow3" instance=ExtResource("3_06i5s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
+
+[node name="DeathTile5" parent="3D/Level4/DeathRow3" instance=ExtResource("3_06i5s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8)
+
+[node name="DeathRow4" type="Node3D" parent="3D/Level4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 74.5, 7.05, -45.25)
+
+[node name="DeathTile" parent="3D/Level4/DeathRow4" instance=ExtResource("3_06i5s")]
+
+[node name="DeathTile2" parent="3D/Level4/DeathRow4" instance=ExtResource("3_06i5s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+
+[node name="DeathTile3" parent="3D/Level4/DeathRow4" instance=ExtResource("3_06i5s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6)
+
+[node name="DeathTile4" parent="3D/Level4/DeathRow4" instance=ExtResource("3_06i5s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
+
+[node name="DeathTile5" parent="3D/Level4/DeathRow4" instance=ExtResource("3_06i5s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8)
+
+[node name="DeathRow5" type="Node3D" parent="3D/Level4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 75.5, 7.05, -46.25)
+
+[node name="DeathTile" parent="3D/Level4/DeathRow5" instance=ExtResource("3_06i5s")]
+
+[node name="DeathTile2" parent="3D/Level4/DeathRow5" instance=ExtResource("3_06i5s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+
+[node name="DeathTile3" parent="3D/Level4/DeathRow5" instance=ExtResource("3_06i5s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6)
+
+[node name="DeathTile4" parent="3D/Level4/DeathRow5" instance=ExtResource("3_06i5s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
+
+[node name="DeathTile5" parent="3D/Level4/DeathRow5" instance=ExtResource("3_06i5s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8)
+
+[node name="DeathRow6" type="Node3D" parent="3D/Level4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 76.5, 7.05, -45.25)
+
+[node name="DeathTile" parent="3D/Level4/DeathRow6" instance=ExtResource("3_06i5s")]
+
+[node name="DeathTile2" parent="3D/Level4/DeathRow6" instance=ExtResource("3_06i5s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+
+[node name="DeathTile3" parent="3D/Level4/DeathRow6" instance=ExtResource("3_06i5s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6)
+
+[node name="DeathTile4" parent="3D/Level4/DeathRow6" instance=ExtResource("3_06i5s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
+
+[node name="DeathTile5" parent="3D/Level4/DeathRow6" instance=ExtResource("3_06i5s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8)
+
+[node name="DeathRow7" type="Node3D" parent="3D/Level4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 77.5, 7.05, -46.25)
+
+[node name="DeathTile" parent="3D/Level4/DeathRow7" instance=ExtResource("3_06i5s")]
+
+[node name="DeathTile2" parent="3D/Level4/DeathRow7" instance=ExtResource("3_06i5s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+
+[node name="DeathTile3" parent="3D/Level4/DeathRow7" instance=ExtResource("3_06i5s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6)
+
+[node name="DeathTile4" parent="3D/Level4/DeathRow7" instance=ExtResource("3_06i5s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
+
+[node name="DeathTile5" parent="3D/Level4/DeathRow7" instance=ExtResource("3_06i5s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8)
+
+[node name="DeathRow8" type="Node3D" parent="3D/Level4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 78.5, 7.05, -45.25)
+
+[node name="DeathTile" parent="3D/Level4/DeathRow8" instance=ExtResource("3_06i5s")]
+
+[node name="DeathTile2" parent="3D/Level4/DeathRow8" instance=ExtResource("3_06i5s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+
+[node name="DeathTile3" parent="3D/Level4/DeathRow8" instance=ExtResource("3_06i5s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6)
+
+[node name="DeathTile4" parent="3D/Level4/DeathRow8" instance=ExtResource("3_06i5s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
+
+[node name="DeathTile5" parent="3D/Level4/DeathRow8" instance=ExtResource("3_06i5s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8)
+
+[node name="DeathRow9" type="Node3D" parent="3D/Level4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 79.5, 7.05, -46.25)
+
+[node name="DeathTile" parent="3D/Level4/DeathRow9" instance=ExtResource("3_06i5s")]
+
+[node name="DeathTile2" parent="3D/Level4/DeathRow9" instance=ExtResource("3_06i5s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+
+[node name="DeathTile3" parent="3D/Level4/DeathRow9" instance=ExtResource("3_06i5s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6)
+
+[node name="DeathTile4" parent="3D/Level4/DeathRow9" instance=ExtResource("3_06i5s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
+
+[node name="DeathTile5" parent="3D/Level4/DeathRow9" instance=ExtResource("3_06i5s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8)
+
+[node name="DeathRow10" type="Node3D" parent="3D/Level4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 80.5, 7.05, -45.25)
+
+[node name="DeathTile" parent="3D/Level4/DeathRow10" instance=ExtResource("3_06i5s")]
+
+[node name="DeathTile2" parent="3D/Level4/DeathRow10" instance=ExtResource("3_06i5s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+
+[node name="DeathTile3" parent="3D/Level4/DeathRow10" instance=ExtResource("3_06i5s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6)
+
+[node name="DeathTile4" parent="3D/Level4/DeathRow10" instance=ExtResource("3_06i5s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
+
+[node name="DeathTile5" parent="3D/Level4/DeathRow10" instance=ExtResource("3_06i5s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8)
+
+[node name="Level5" type="Node3D" parent="3D"]
+
+[node name="Base" type="StaticBody3D" parent="3D/Level5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 86, 6.5, -41.749)
+collision_layer = 4
+physics_material_override = SubResource("PhysicsMaterial_jfwmn")
+
+[node name="Spawn" parent="3D/Level5/Base" instance=ExtResource("1_avimj")]
+level = 5
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0.5, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="3D/Level5/Base"]
+gi_mode = 0
+mesh = SubResource("BoxMesh_3gkm3")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="3D/Level5/Base"]
+shape = SubResource("BoxShape3D_n1of8")
 
 [node name="2D" type="Node2D" parent="."]
 
@@ -326,3 +561,8 @@ autoplay = true
 position = Vector2(32, 32)
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("4_qeu58")
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_3vc3a")
+volume_db = 1.0
+autoplay = true
