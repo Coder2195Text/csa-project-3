@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://ctttgpei12vtv"]
+[gd_scene load_steps=31 format=3 uid="uid://ctttgpei12vtv"]
 
 [ext_resource type="PackedScene" uid="uid://bjdyddpain5xj" path="res://sprites/Spawn.tscn" id="1_avimj"]
 [ext_resource type="AudioStream" uid="uid://dcn80hiqhfrkj" path="res://sounds/music.mp3" id="3_3vc3a"]
@@ -93,6 +93,13 @@ size = Vector3(10, 0.5, 10)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_m8sur"]
 size = Vector3(10, 0.5, 10)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hxj7l"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_w3rgs"]
+material = SubResource("StandardMaterial3D_hxj7l")
+size = Vector3(1, 15, 4)
 
 [node name="Root" type="Node"]
 
@@ -555,6 +562,60 @@ skeleton = NodePath("../..")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="3D/Level5/Base"]
 shape = SubResource("BoxShape3D_n1of8")
 
+[node name="NormalPlatform" type="StaticBody3D" parent="3D/Level5"]
+transform = Transform3D(-0.00996566, 0, -0.99995, 0, 1, 0, 0.99995, 0, -0.00996566, 86, 6.75, -26.75)
+collision_layer = 4
+physics_material_override = SubResource("PhysicsMaterial_2lsvf")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="3D/Level5/NormalPlatform"]
+gi_mode = 0
+mesh = SubResource("BoxMesh_4h46p")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="3D/Level5/NormalPlatform"]
+shape = SubResource("BoxShape3D_vxkam")
+
+[node name="NeoWall" type="Death" parent="3D/Level5"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 86, 6.75, -27.75)
+collision_layer = 2
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="3D/Level5/NeoWall"]
+gi_mode = 0
+mesh = SubResource("BoxMesh_w3rgs")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="3D/Level5/NeoWall"]
+shape = SubResource("BoxShape3D_65ogw")
+
+[node name="Level6" type="Node3D" parent="3D"]
+
+[node name="Base" type="StaticBody3D" parent="3D/Level6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 86, 6.5, -11.749)
+collision_layer = 4
+physics_material_override = SubResource("PhysicsMaterial_jfwmn")
+
+[node name="Spawn" parent="3D/Level6/Base" instance=ExtResource("1_avimj")]
+level = 6
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0.5, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="3D/Level6/Base"]
+gi_mode = 0
+mesh = SubResource("BoxMesh_3gkm3")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="3D/Level6/Base"]
+shape = SubResource("BoxShape3D_n1of8")
+
+[node name="NormalPlatform" type="StaticBody3D" parent="3D/Level6"]
+transform = Transform3D(1, 0, 0, 0, 0.258819, 0.965926, 0, -0.965926, 0.258819, 86, 6.75, -1.75)
+collision_layer = 4
+physics_material_override = SubResource("PhysicsMaterial_2lsvf")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="3D/Level6/NormalPlatform"]
+gi_mode = 0
+mesh = SubResource("BoxMesh_k8jaf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="3D/Level6/NormalPlatform"]
+shape = SubResource("BoxShape3D_m8sur")
+
 [node name="2D" type="Node2D" parent="."]
 
 [node name="Icon" type="Sprite2D" parent="2D"]
@@ -566,3 +627,5 @@ texture = ExtResource("4_qeu58")
 stream = ExtResource("3_3vc3a")
 volume_db = 1.0
 autoplay = true
+
+[connection signal="body_entered" from="3D/Level5/NeoWall" to="3D/Level5/NeoWall" method="on_touched"]

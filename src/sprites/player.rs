@@ -31,10 +31,20 @@ impl ICharacterBody2D for Player {
             base.rotate_y(event.get_relative().x * -0.005);
             let mut camera = base.get_node_as::<Camera3D>("Camera");
             let rot = camera.get_rotation_degrees().x;
-            if (rot > -90.0 && event.get_relative().y > 0.0)
-                || (rot < 90.0 && event.get_relative().y < 0.0)
+            let move_rot = event.get_relative().y * -0.01;
+            if move_rot == 0.0 {
+                return;
+            }
+            if (rot + move_rot > -90.0 && event.get_relative().y > 0.0)
+                || (rot + move_rot < 90.0 && event.get_relative().y < 0.0)
             {
-                camera.rotate_x(event.get_relative().y * -0.01);
+                camera.rotate_x(move_rot);
+            } else {
+                camera.set_rotation_degrees(Vector3::new(
+                    if rot + move_rot > 0.0 { 90.0 } else { -90.0 },
+                    0.0,
+                    0.0,
+                ));
             }
         }
     }
@@ -95,6 +105,7 @@ impl Player {
 
         let mut base = self.base_mut();
         base.set_global_position(pos);
+        base.set_velocity(Vector3::ZERO);
         base.set_rotation(Vector3::new(0.0, rot.y, 0.0));
         cam.set_rotation(Vector3::new(rot.x, 0.0, 0.0));
     }
