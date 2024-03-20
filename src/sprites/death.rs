@@ -1,5 +1,4 @@
 use godot::engine::Area3D;
-use godot::obj::WithBaseField;
 use godot::prelude::*;
 
 use super::player::Player;

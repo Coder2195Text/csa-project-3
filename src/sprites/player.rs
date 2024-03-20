@@ -7,8 +7,9 @@ use godot::prelude::*;
 #[class(base=CharacterBody3D)]
 pub struct Player {
     base: Base<CharacterBody3D>,
-    #[var]
+    #[export]
     pub last_spawn: Vector3,
+    #[export]
     pub last_rotation: Vector3,
     pub last_level: i32,
 }

@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://gt5hawiaglhl"]
+
+[node name="MovingPlatform" type="MovingPlatform"]
+speed = 2.0
+distance = 2.0
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 92, -11, -16)
+collision_layer = 4
+constant_linear_velocity = Vector3(0, 10, 0)
+
+[connection signal="ready" from="." to="." method="ready"]
