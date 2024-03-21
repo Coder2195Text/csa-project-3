@@ -27,7 +27,6 @@ impl ICharacterBody2D for Player {
 
     fn input(&mut self, event: Gd<InputEvent>) {
         let mut base = self.base_mut();
-        Input::singleton().set_mouse_mode(MouseMode::CAPTURED);
         if let Ok(event) = event.try_cast::<InputEventMouseMotion>() {
             base.rotate_y(event.get_relative().x * -0.005);
             let mut camera = base.get_node_as::<Camera3D>("Camera");

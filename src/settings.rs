@@ -4,15 +4,18 @@ use godot::prelude::*;
 #[class(init, base=Object)]
 pub struct SettingsSingleton {
     #[var]
-    paused: bool,
+    pub paused: bool,
     #[var]
-    sensitivity: f32,
+    pub sensitivity: f32,
     #[var]
-    volume: f32,
+    pub volume: f32,
     base: Base<Object>,
 }
 
 #[godot_api]
 pub impl SettingsSingleton {
-    
+    #[func]
+    fn toggle_pause(&mut self) {
+        self.paused = !self.paused;
+    }
 }

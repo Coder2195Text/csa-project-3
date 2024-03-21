@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://ctttgpei12vtv"]
+[gd_scene load_steps=41 format=3 uid="uid://ctttgpei12vtv"]
 
 [ext_resource type="PackedScene" uid="uid://bjdyddpain5xj" path="res://sprites/Spawn.tscn" id="1_avimj"]
 [ext_resource type="AudioStream" uid="uid://dcn80hiqhfrkj" path="res://sounds/music.mp3" id="3_3vc3a"]
@@ -112,126 +112,138 @@ rough = true
 absorbent = true
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ldsy6"]
-size = Vector3(5, 5, 1)
+size = Vector3(5, 5, 1.5)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vipsp"]
 albedo_color = Color(1, 0, 0, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_shtb2"]
 material = SubResource("StandardMaterial3D_vipsp")
-size = Vector3(5, 5, 1)
+size = Vector3(5, 5, 1.5)
 
 [sub_resource type="BoxMesh" id="BoxMesh_qkg3r"]
 material = SubResource("StandardMaterial3D_rgish")
 size = Vector3(40, 0.5, 2)
 
-[node name="Game" type="Node3D"]
+[sub_resource type="BoxMesh" id="BoxMesh_gayad"]
+material = SubResource("StandardMaterial3D_rgish")
+size = Vector3(200, 0.5, 2)
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[sub_resource type="BoxShape3D" id="BoxShape3D_7rg3s"]
+size = Vector3(200, 0.5, 2)
+
+[node name="Node" type="Node"]
+
+[node name="GameUI" parent="." instance=ExtResource("8_ugsnl")]
+
+[node name="Game" type="Node3D" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Game"]
 environment = SubResource("Environment_6rin4")
 
-[node name="Light" type="DirectionalLight3D" parent="."]
+[node name="Light" type="DirectionalLight3D" parent="Game"]
 transform = Transform3D(0.939693, 0.296198, -0.17101, 0, 0.5, 0.866025, 0.34202, -0.813798, 0.469846, 0, 1000, 0)
 light_energy = 0.4
 shadow_enabled = true
 directional_shadow_mode = 1
 
-[node name="Player" parent="." instance=ExtResource("3_7777k")]
+[node name="Player" parent="Game" instance=ExtResource("3_7777k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 137.5, -3.25, -15)
 rotation_order = 1
 top_level = true
 collision_mask = 52
 
-[node name="Level1" type="Node3D" parent="."]
+[node name="Level1" type="Node3D" parent="Game"]
 
-[node name="Base" type="StaticBody3D" parent="Level1"]
+[node name="Base" type="StaticBody3D" parent="Game/Level1"]
 collision_layer = 4
 physics_material_override = SubResource("PhysicsMaterial_jfwmn")
 
-[node name="Spawn" parent="Level1/Base" instance=ExtResource("1_avimj")]
+[node name="Spawn" parent="Game/Level1/Base" instance=ExtResource("1_avimj")]
 level = 1
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Level1/Base"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Game/Level1/Base"]
 gi_mode = 0
 mesh = SubResource("BoxMesh_3gkm3")
 skeleton = NodePath("../..")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Level1/Base"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Game/Level1/Base"]
 shape = SubResource("BoxShape3D_n1of8")
 
-[node name="NormalPlatform" type="StaticBody3D" parent="Level1"]
+[node name="NormalPlatform" type="StaticBody3D" parent="Game/Level1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.417966, 0.885872, -9.5263)
 collision_layer = 4
 physics_material_override = SubResource("PhysicsMaterial_2lsvf")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Level1/NormalPlatform"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Game/Level1/NormalPlatform"]
 gi_mode = 0
 mesh = SubResource("BoxMesh_by8hq")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Level1/NormalPlatform"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Game/Level1/NormalPlatform"]
 shape = SubResource("BoxShape3D_rcms7")
 
-[node name="NormalPlatform2" type="StaticBody3D" parent="Level1"]
+[node name="NormalPlatform2" type="StaticBody3D" parent="Game/Level1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.93546, 2.58457, -15.2175)
 collision_layer = 4
 physics_material_override = SubResource("PhysicsMaterial_2lsvf")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Level1/NormalPlatform2"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Game/Level1/NormalPlatform2"]
 gi_mode = 0
 mesh = SubResource("BoxMesh_by8hq")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Level1/NormalPlatform2"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Game/Level1/NormalPlatform2"]
 shape = SubResource("BoxShape3D_rcms7")
 
-[node name="NormalPlatform3" type="StaticBody3D" parent="Level1"]
+[node name="NormalPlatform3" type="StaticBody3D" parent="Game/Level1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.93546, 2.58457, -19.9195)
 collision_layer = 4
 physics_material_override = SubResource("PhysicsMaterial_2lsvf")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Level1/NormalPlatform3"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Game/Level1/NormalPlatform3"]
 gi_mode = 0
 mesh = SubResource("BoxMesh_by8hq")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Level1/NormalPlatform3"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Game/Level1/NormalPlatform3"]
 shape = SubResource("BoxShape3D_rcms7")
 
-[node name="NormalPlatform4" type="StaticBody3D" parent="Level1"]
+[node name="NormalPlatform4" type="StaticBody3D" parent="Game/Level1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.93546, 6.5494, -26.9613)
 collision_layer = 4
 physics_material_override = SubResource("PhysicsMaterial_2lsvf")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Level1/NormalPlatform4"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Game/Level1/NormalPlatform4"]
 gi_mode = 0
 mesh = SubResource("BoxMesh_by8hq")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Level1/NormalPlatform4"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Game/Level1/NormalPlatform4"]
 shape = SubResource("BoxShape3D_rcms7")
 
-[node name="NormalPlatform5" type="StaticBody3D" parent="Level1"]
+[node name="NormalPlatform5" type="StaticBody3D" parent="Game/Level1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.93546, 4.92332, -32.9923)
 collision_layer = 4
 physics_material_override = SubResource("PhysicsMaterial_2lsvf")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Level1/NormalPlatform5"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Game/Level1/NormalPlatform5"]
 gi_mode = 0
 mesh = SubResource("BoxMesh_by8hq")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Level1/NormalPlatform5"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Game/Level1/NormalPlatform5"]
 shape = SubResource("BoxShape3D_rcms7")
 
-[node name="NormalPlatform6" type="StaticBody3D" parent="Level1"]
+[node name="NormalPlatform6" type="StaticBody3D" parent="Game/Level1"]
 transform = Transform3D(1, 0, 0, 0, 0.707107, -0.707107, 0, 0.707107, 0.707107, 1.93546, 4.58457, -23.9195)
 collision_layer = 4
 physics_material_override = SubResource("PhysicsMaterial_2lsvf")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Level1/NormalPlatform6"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Game/Level1/NormalPlatform6"]
 gi_mode = 0
 mesh = SubResource("BoxMesh_by8hq")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Level1/NormalPlatform6"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Game/Level1/NormalPlatform6"]
 shape = SubResource("BoxShape3D_rcms7")
 
-[node name="Label3D" type="Label3D" parent="Level1"]
+[node name="Label3D" type="Label3D" parent="Game/Level1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.21077, -5)
 double_sided = false
 outline_render_priority = 0
@@ -242,422 +254,422 @@ font = ExtResource("3_x2udd")
 font_size = 160
 outline_size = 20
 
-[node name="Level2" type="Node3D" parent="."]
+[node name="Level2" type="Node3D" parent="Game"]
 
-[node name="Base" type="StaticBody3D" parent="Level2"]
+[node name="Base" type="StaticBody3D" parent="Game/Level2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.49999, -41.7492)
 collision_layer = 4
 physics_material_override = SubResource("PhysicsMaterial_jfwmn")
 
-[node name="Spawn" parent="Level2/Base" instance=ExtResource("1_avimj")]
+[node name="Spawn" parent="Game/Level2/Base" instance=ExtResource("1_avimj")]
 level = 2
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0.5, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Level2/Base"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Game/Level2/Base"]
 gi_mode = 0
 mesh = SubResource("BoxMesh_3gkm3")
 skeleton = NodePath("../..")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Level2/Base"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Game/Level2/Base"]
 shape = SubResource("BoxShape3D_n1of8")
 
-[node name="RealPlatform" type="StaticBody3D" parent="Level2"]
+[node name="RealPlatform" type="StaticBody3D" parent="Game/Level2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 6.75, -40)
 collision_layer = 4
 physics_material_override = SubResource("PhysicsMaterial_2lsvf")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Level2/RealPlatform"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Game/Level2/RealPlatform"]
 gi_mode = 0
 mesh = SubResource("BoxMesh_rjwnc")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Level2/RealPlatform"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Game/Level2/RealPlatform"]
 shape = SubResource("BoxShape3D_l4js4")
 
-[node name="FakePlatform" type="MeshInstance3D" parent="Level2"]
+[node name="FakePlatform" type="MeshInstance3D" parent="Game/Level2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 6.75, -43.5)
 gi_mode = 0
 mesh = SubResource("BoxMesh_rjwnc")
 skeleton = NodePath("")
 
-[node name="ChoosePlatform" type="StaticBody3D" parent="Level2"]
+[node name="ChoosePlatform" type="StaticBody3D" parent="Game/Level2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 6.75, -41.75)
 collision_layer = 4
 physics_material_override = SubResource("PhysicsMaterial_2lsvf")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Level2/ChoosePlatform"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Game/Level2/ChoosePlatform"]
 gi_mode = 0
 mesh = SubResource("BoxMesh_nrmdr")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Level2/ChoosePlatform"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Game/Level2/ChoosePlatform"]
 shape = SubResource("BoxShape3D_j1rek")
 
-[node name="RealPlatform2" type="StaticBody3D" parent="Level2"]
+[node name="RealPlatform2" type="StaticBody3D" parent="Game/Level2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26, 6.75, -40)
 collision_layer = 4
 physics_material_override = SubResource("PhysicsMaterial_2lsvf")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Level2/RealPlatform2"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Game/Level2/RealPlatform2"]
 gi_mode = 0
 mesh = SubResource("BoxMesh_rjwnc")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Level2/RealPlatform2"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Game/Level2/RealPlatform2"]
 shape = SubResource("BoxShape3D_l4js4")
 
-[node name="FakePlatform2" type="MeshInstance3D" parent="Level2"]
+[node name="FakePlatform2" type="MeshInstance3D" parent="Game/Level2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26, 6.75, -43.5)
 gi_mode = 0
 mesh = SubResource("BoxMesh_rjwnc")
 skeleton = NodePath(".")
 
-[node name="Level3" type="Node3D" parent="."]
+[node name="Level3" type="Node3D" parent="Game"]
 
-[node name="Base" type="StaticBody3D" parent="Level3"]
+[node name="Base" type="StaticBody3D" parent="Game/Level3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 6.5, -41.749)
 collision_layer = 4
 physics_material_override = SubResource("PhysicsMaterial_jfwmn")
 
-[node name="Spawn" parent="Level3/Base" instance=ExtResource("1_avimj")]
+[node name="Spawn" parent="Game/Level3/Base" instance=ExtResource("1_avimj")]
 level = 3
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0.5, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Level3/Base"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Game/Level3/Base"]
 gi_mode = 0
 mesh = SubResource("BoxMesh_3gkm3")
 skeleton = NodePath("../..")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Level3/Base"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Game/Level3/Base"]
 shape = SubResource("BoxShape3D_n1of8")
 
-[node name="NormalPlatform" type="StaticBody3D" parent="Level3"]
+[node name="NormalPlatform" type="StaticBody3D" parent="Game/Level3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 51, 6.75, -41.75)
 collision_layer = 4
 physics_material_override = SubResource("PhysicsMaterial_2lsvf")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Level3/NormalPlatform"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Game/Level3/NormalPlatform"]
 gi_mode = 0
 mesh = SubResource("BoxMesh_4h46p")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Level3/NormalPlatform"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Game/Level3/NormalPlatform"]
 shape = SubResource("BoxShape3D_vxkam")
 
-[node name="NeoWall" type="StaticBody3D" parent="Level3"]
+[node name="NeoWall" type="StaticBody3D" parent="Game/Level3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47, 6.75, -41.75)
 collision_layer = 4
 physics_material_override = SubResource("PhysicsMaterial_2lsvf")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Level3/NeoWall"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Game/Level3/NeoWall"]
 gi_mode = 0
 mesh = SubResource("BoxMesh_pie5y")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Level3/NeoWall"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Game/Level3/NeoWall"]
 shape = SubResource("BoxShape3D_65ogw")
 
-[node name="NeoWall2" type="StaticBody3D" parent="Level3"]
+[node name="NeoWall2" type="StaticBody3D" parent="Game/Level3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 55, 6.75, -41.75)
 collision_layer = 4
 physics_material_override = SubResource("PhysicsMaterial_2lsvf")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Level3/NeoWall2"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Game/Level3/NeoWall2"]
 gi_mode = 0
 mesh = SubResource("BoxMesh_pie5y")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Level3/NeoWall2"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Game/Level3/NeoWall2"]
 shape = SubResource("BoxShape3D_65ogw")
 
-[node name="Level4" type="Node3D" parent="."]
+[node name="Level4" type="Node3D" parent="Game"]
 
-[node name="Base" type="StaticBody3D" parent="Level4"]
+[node name="Base" type="StaticBody3D" parent="Game/Level4"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 66, 6.5, -41.749)
 collision_layer = 4
 physics_material_override = SubResource("PhysicsMaterial_jfwmn")
 
-[node name="Spawn" parent="Level4/Base" instance=ExtResource("1_avimj")]
+[node name="Spawn" parent="Game/Level4/Base" instance=ExtResource("1_avimj")]
 level = 4
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0.5, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Level4/Base"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Game/Level4/Base"]
 gi_mode = 0
 mesh = SubResource("BoxMesh_3gkm3")
 skeleton = NodePath("../..")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Level4/Base"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Game/Level4/Base"]
 shape = SubResource("BoxShape3D_n1of8")
 
-[node name="NormalPlatform" type="StaticBody3D" parent="Level4"]
+[node name="NormalPlatform" type="StaticBody3D" parent="Game/Level4"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 76, 6.75, -41.75)
 collision_layer = 4
 physics_material_override = SubResource("PhysicsMaterial_2lsvf")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Level4/NormalPlatform"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Game/Level4/NormalPlatform"]
 gi_mode = 0
 mesh = SubResource("BoxMesh_k8jaf")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Level4/NormalPlatform"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Game/Level4/NormalPlatform"]
 shape = SubResource("BoxShape3D_m8sur")
 
-[node name="DeathRow" type="Node3D" parent="Level4"]
+[node name="DeathRow" type="Node3D" parent="Game/Level4"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 71.5, 7.05, -46.25)
 
-[node name="DeathTile" parent="Level4/DeathRow" instance=ExtResource("3_06i5s")]
+[node name="DeathTile" parent="Game/Level4/DeathRow" instance=ExtResource("3_06i5s")]
 
-[node name="DeathTile2" parent="Level4/DeathRow" instance=ExtResource("3_06i5s")]
+[node name="DeathTile2" parent="Game/Level4/DeathRow" instance=ExtResource("3_06i5s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
 
-[node name="DeathTile3" parent="Level4/DeathRow" instance=ExtResource("3_06i5s")]
+[node name="DeathTile3" parent="Game/Level4/DeathRow" instance=ExtResource("3_06i5s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6)
 
-[node name="DeathTile4" parent="Level4/DeathRow" instance=ExtResource("3_06i5s")]
+[node name="DeathTile4" parent="Game/Level4/DeathRow" instance=ExtResource("3_06i5s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
 
-[node name="DeathTile5" parent="Level4/DeathRow" instance=ExtResource("3_06i5s")]
+[node name="DeathTile5" parent="Game/Level4/DeathRow" instance=ExtResource("3_06i5s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8)
 
-[node name="DeathRow2" type="Node3D" parent="Level4"]
+[node name="DeathRow2" type="Node3D" parent="Game/Level4"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72.5, 7.05, -45.25)
 
-[node name="DeathTile" parent="Level4/DeathRow2" instance=ExtResource("3_06i5s")]
+[node name="DeathTile" parent="Game/Level4/DeathRow2" instance=ExtResource("3_06i5s")]
 
-[node name="DeathTile2" parent="Level4/DeathRow2" instance=ExtResource("3_06i5s")]
+[node name="DeathTile2" parent="Game/Level4/DeathRow2" instance=ExtResource("3_06i5s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
 
-[node name="DeathTile3" parent="Level4/DeathRow2" instance=ExtResource("3_06i5s")]
+[node name="DeathTile3" parent="Game/Level4/DeathRow2" instance=ExtResource("3_06i5s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6)
 
-[node name="DeathTile4" parent="Level4/DeathRow2" instance=ExtResource("3_06i5s")]
+[node name="DeathTile4" parent="Game/Level4/DeathRow2" instance=ExtResource("3_06i5s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
 
-[node name="DeathTile5" parent="Level4/DeathRow2" instance=ExtResource("3_06i5s")]
+[node name="DeathTile5" parent="Game/Level4/DeathRow2" instance=ExtResource("3_06i5s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8)
 
-[node name="DeathRow3" type="Node3D" parent="Level4"]
+[node name="DeathRow3" type="Node3D" parent="Game/Level4"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 73.5, 7.05, -46.25)
 
-[node name="DeathTile" parent="Level4/DeathRow3" instance=ExtResource("3_06i5s")]
+[node name="DeathTile" parent="Game/Level4/DeathRow3" instance=ExtResource("3_06i5s")]
 
-[node name="DeathTile2" parent="Level4/DeathRow3" instance=ExtResource("3_06i5s")]
+[node name="DeathTile2" parent="Game/Level4/DeathRow3" instance=ExtResource("3_06i5s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
 
-[node name="DeathTile3" parent="Level4/DeathRow3" instance=ExtResource("3_06i5s")]
+[node name="DeathTile3" parent="Game/Level4/DeathRow3" instance=ExtResource("3_06i5s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6)
 
-[node name="DeathTile4" parent="Level4/DeathRow3" instance=ExtResource("3_06i5s")]
+[node name="DeathTile4" parent="Game/Level4/DeathRow3" instance=ExtResource("3_06i5s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
 
-[node name="DeathTile5" parent="Level4/DeathRow3" instance=ExtResource("3_06i5s")]
+[node name="DeathTile5" parent="Game/Level4/DeathRow3" instance=ExtResource("3_06i5s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8)
 
-[node name="DeathRow4" type="Node3D" parent="Level4"]
+[node name="DeathRow4" type="Node3D" parent="Game/Level4"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 74.5, 7.05, -45.25)
 
-[node name="DeathTile" parent="Level4/DeathRow4" instance=ExtResource("3_06i5s")]
+[node name="DeathTile" parent="Game/Level4/DeathRow4" instance=ExtResource("3_06i5s")]
 
-[node name="DeathTile2" parent="Level4/DeathRow4" instance=ExtResource("3_06i5s")]
+[node name="DeathTile2" parent="Game/Level4/DeathRow4" instance=ExtResource("3_06i5s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
 
-[node name="DeathTile3" parent="Level4/DeathRow4" instance=ExtResource("3_06i5s")]
+[node name="DeathTile3" parent="Game/Level4/DeathRow4" instance=ExtResource("3_06i5s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6)
 
-[node name="DeathTile4" parent="Level4/DeathRow4" instance=ExtResource("3_06i5s")]
+[node name="DeathTile4" parent="Game/Level4/DeathRow4" instance=ExtResource("3_06i5s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
 
-[node name="DeathTile5" parent="Level4/DeathRow4" instance=ExtResource("3_06i5s")]
+[node name="DeathTile5" parent="Game/Level4/DeathRow4" instance=ExtResource("3_06i5s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8)
 
-[node name="DeathRow5" type="Node3D" parent="Level4"]
+[node name="DeathRow5" type="Node3D" parent="Game/Level4"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 75.5, 7.05, -46.25)
 
-[node name="DeathTile" parent="Level4/DeathRow5" instance=ExtResource("3_06i5s")]
+[node name="DeathTile" parent="Game/Level4/DeathRow5" instance=ExtResource("3_06i5s")]
 
-[node name="DeathTile2" parent="Level4/DeathRow5" instance=ExtResource("3_06i5s")]
+[node name="DeathTile2" parent="Game/Level4/DeathRow5" instance=ExtResource("3_06i5s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
 
-[node name="DeathTile3" parent="Level4/DeathRow5" instance=ExtResource("3_06i5s")]
+[node name="DeathTile3" parent="Game/Level4/DeathRow5" instance=ExtResource("3_06i5s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6)
 
-[node name="DeathTile4" parent="Level4/DeathRow5" instance=ExtResource("3_06i5s")]
+[node name="DeathTile4" parent="Game/Level4/DeathRow5" instance=ExtResource("3_06i5s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
 
-[node name="DeathTile5" parent="Level4/DeathRow5" instance=ExtResource("3_06i5s")]
+[node name="DeathTile5" parent="Game/Level4/DeathRow5" instance=ExtResource("3_06i5s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8)
 
-[node name="DeathRow6" type="Node3D" parent="Level4"]
+[node name="DeathRow6" type="Node3D" parent="Game/Level4"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 76.5, 7.05, -45.25)
 
-[node name="DeathTile" parent="Level4/DeathRow6" instance=ExtResource("3_06i5s")]
+[node name="DeathTile" parent="Game/Level4/DeathRow6" instance=ExtResource("3_06i5s")]
 
-[node name="DeathTile2" parent="Level4/DeathRow6" instance=ExtResource("3_06i5s")]
+[node name="DeathTile2" parent="Game/Level4/DeathRow6" instance=ExtResource("3_06i5s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
 
-[node name="DeathTile3" parent="Level4/DeathRow6" instance=ExtResource("3_06i5s")]
+[node name="DeathTile3" parent="Game/Level4/DeathRow6" instance=ExtResource("3_06i5s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6)
 
-[node name="DeathTile4" parent="Level4/DeathRow6" instance=ExtResource("3_06i5s")]
+[node name="DeathTile4" parent="Game/Level4/DeathRow6" instance=ExtResource("3_06i5s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
 
-[node name="DeathTile5" parent="Level4/DeathRow6" instance=ExtResource("3_06i5s")]
+[node name="DeathTile5" parent="Game/Level4/DeathRow6" instance=ExtResource("3_06i5s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8)
 
-[node name="DeathRow7" type="Node3D" parent="Level4"]
+[node name="DeathRow7" type="Node3D" parent="Game/Level4"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 77.5, 7.05, -46.25)
 
-[node name="DeathTile" parent="Level4/DeathRow7" instance=ExtResource("3_06i5s")]
+[node name="DeathTile" parent="Game/Level4/DeathRow7" instance=ExtResource("3_06i5s")]
 
-[node name="DeathTile2" parent="Level4/DeathRow7" instance=ExtResource("3_06i5s")]
+[node name="DeathTile2" parent="Game/Level4/DeathRow7" instance=ExtResource("3_06i5s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
 
-[node name="DeathTile3" parent="Level4/DeathRow7" instance=ExtResource("3_06i5s")]
+[node name="DeathTile3" parent="Game/Level4/DeathRow7" instance=ExtResource("3_06i5s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6)
 
-[node name="DeathTile4" parent="Level4/DeathRow7" instance=ExtResource("3_06i5s")]
+[node name="DeathTile4" parent="Game/Level4/DeathRow7" instance=ExtResource("3_06i5s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
 
-[node name="DeathTile5" parent="Level4/DeathRow7" instance=ExtResource("3_06i5s")]
+[node name="DeathTile5" parent="Game/Level4/DeathRow7" instance=ExtResource("3_06i5s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8)
 
-[node name="DeathRow8" type="Node3D" parent="Level4"]
+[node name="DeathRow8" type="Node3D" parent="Game/Level4"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 78.5, 7.05, -45.25)
 
-[node name="DeathTile" parent="Level4/DeathRow8" instance=ExtResource("3_06i5s")]
+[node name="DeathTile" parent="Game/Level4/DeathRow8" instance=ExtResource("3_06i5s")]
 
-[node name="DeathTile2" parent="Level4/DeathRow8" instance=ExtResource("3_06i5s")]
+[node name="DeathTile2" parent="Game/Level4/DeathRow8" instance=ExtResource("3_06i5s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
 
-[node name="DeathTile3" parent="Level4/DeathRow8" instance=ExtResource("3_06i5s")]
+[node name="DeathTile3" parent="Game/Level4/DeathRow8" instance=ExtResource("3_06i5s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6)
 
-[node name="DeathTile4" parent="Level4/DeathRow8" instance=ExtResource("3_06i5s")]
+[node name="DeathTile4" parent="Game/Level4/DeathRow8" instance=ExtResource("3_06i5s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
 
-[node name="DeathTile5" parent="Level4/DeathRow8" instance=ExtResource("3_06i5s")]
+[node name="DeathTile5" parent="Game/Level4/DeathRow8" instance=ExtResource("3_06i5s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8)
 
-[node name="DeathRow9" type="Node3D" parent="Level4"]
+[node name="DeathRow9" type="Node3D" parent="Game/Level4"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 79.5, 7.05, -46.25)
 
-[node name="DeathTile" parent="Level4/DeathRow9" instance=ExtResource("3_06i5s")]
+[node name="DeathTile" parent="Game/Level4/DeathRow9" instance=ExtResource("3_06i5s")]
 
-[node name="DeathTile2" parent="Level4/DeathRow9" instance=ExtResource("3_06i5s")]
+[node name="DeathTile2" parent="Game/Level4/DeathRow9" instance=ExtResource("3_06i5s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
 
-[node name="DeathTile3" parent="Level4/DeathRow9" instance=ExtResource("3_06i5s")]
+[node name="DeathTile3" parent="Game/Level4/DeathRow9" instance=ExtResource("3_06i5s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6)
 
-[node name="DeathTile4" parent="Level4/DeathRow9" instance=ExtResource("3_06i5s")]
+[node name="DeathTile4" parent="Game/Level4/DeathRow9" instance=ExtResource("3_06i5s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
 
-[node name="DeathTile5" parent="Level4/DeathRow9" instance=ExtResource("3_06i5s")]
+[node name="DeathTile5" parent="Game/Level4/DeathRow9" instance=ExtResource("3_06i5s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8)
 
-[node name="DeathRow10" type="Node3D" parent="Level4"]
+[node name="DeathRow10" type="Node3D" parent="Game/Level4"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 80.5, 7.05, -45.25)
 
-[node name="DeathTile" parent="Level4/DeathRow10" instance=ExtResource("3_06i5s")]
+[node name="DeathTile" parent="Game/Level4/DeathRow10" instance=ExtResource("3_06i5s")]
 
-[node name="DeathTile2" parent="Level4/DeathRow10" instance=ExtResource("3_06i5s")]
+[node name="DeathTile2" parent="Game/Level4/DeathRow10" instance=ExtResource("3_06i5s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
 
-[node name="DeathTile3" parent="Level4/DeathRow10" instance=ExtResource("3_06i5s")]
+[node name="DeathTile3" parent="Game/Level4/DeathRow10" instance=ExtResource("3_06i5s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6)
 
-[node name="DeathTile4" parent="Level4/DeathRow10" instance=ExtResource("3_06i5s")]
+[node name="DeathTile4" parent="Game/Level4/DeathRow10" instance=ExtResource("3_06i5s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
 
-[node name="DeathTile5" parent="Level4/DeathRow10" instance=ExtResource("3_06i5s")]
+[node name="DeathTile5" parent="Game/Level4/DeathRow10" instance=ExtResource("3_06i5s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8)
 
-[node name="Level5" type="Node3D" parent="."]
+[node name="Level5" type="Node3D" parent="Game"]
 
-[node name="Base" type="StaticBody3D" parent="Level5"]
+[node name="Base" type="StaticBody3D" parent="Game/Level5"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 86, 6.5, -41.749)
 collision_layer = 4
 physics_material_override = SubResource("PhysicsMaterial_jfwmn")
 
-[node name="Spawn" parent="Level5/Base" instance=ExtResource("1_avimj")]
+[node name="Spawn" parent="Game/Level5/Base" instance=ExtResource("1_avimj")]
 level = 5
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0.5, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Level5/Base"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Game/Level5/Base"]
 gi_mode = 0
 mesh = SubResource("BoxMesh_3gkm3")
 skeleton = NodePath("../..")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Level5/Base"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Game/Level5/Base"]
 shape = SubResource("BoxShape3D_n1of8")
 
-[node name="NormalPlatform" type="StaticBody3D" parent="Level5"]
+[node name="NormalPlatform" type="StaticBody3D" parent="Game/Level5"]
 transform = Transform3D(-0.00996566, 0, -0.99995, 0, 1, 0, 0.99995, 0, -0.00996566, 86, 6.75, -26.75)
 collision_layer = 4
 physics_material_override = SubResource("PhysicsMaterial_2lsvf")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Level5/NormalPlatform"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Game/Level5/NormalPlatform"]
 gi_mode = 0
 mesh = SubResource("BoxMesh_4h46p")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Level5/NormalPlatform"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Game/Level5/NormalPlatform"]
 shape = SubResource("BoxShape3D_vxkam")
 
-[node name="NeoWall" type="Death" parent="Level5"]
+[node name="NeoWall" type="Death" parent="Game/Level5"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 86, 6.75, -27.75)
 collision_layer = 2
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Level5/NeoWall"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Game/Level5/NeoWall"]
 gi_mode = 0
 mesh = SubResource("BoxMesh_w3rgs")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Level5/NeoWall"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Game/Level5/NeoWall"]
 shape = SubResource("BoxShape3D_65ogw")
 
-[node name="Level6" type="Node3D" parent="."]
+[node name="Level6" type="Node3D" parent="Game"]
 
-[node name="Base" type="StaticBody3D" parent="Level6"]
+[node name="Base" type="StaticBody3D" parent="Game/Level6"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 86, 6.5, -11.75)
 collision_layer = 4
 physics_material_override = SubResource("PhysicsMaterial_jfwmn")
 
-[node name="Spawn" parent="Level6/Base" instance=ExtResource("1_avimj")]
+[node name="Spawn" parent="Game/Level6/Base" instance=ExtResource("1_avimj")]
 level = 6
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0.5, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Level6/Base"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Game/Level6/Base"]
 gi_mode = 0
 mesh = SubResource("BoxMesh_3gkm3")
 skeleton = NodePath("../..")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Level6/Base"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Game/Level6/Base"]
 shape = SubResource("BoxShape3D_n1of8")
 
-[node name="NormalPlatform" type="StaticBody3D" parent="Level6"]
+[node name="NormalPlatform" type="StaticBody3D" parent="Game/Level6"]
 transform = Transform3D(1, 0, 0, 0, 0.694658, 0.71934, 0, -0.71934, 0.694658, 86, 6.75, -1.75)
 collision_layer = 4
 physics_material_override = SubResource("PhysicsMaterial_2lsvf")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Level6/NormalPlatform"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Game/Level6/NormalPlatform"]
 gi_mode = 0
 mesh = SubResource("BoxMesh_k8jaf")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Level6/NormalPlatform"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Game/Level6/NormalPlatform"]
 shape = SubResource("BoxShape3D_m8sur")
 
-[node name="Level7" type="Node3D" parent="."]
+[node name="Level7" type="Node3D" parent="Game"]
 
-[node name="Base" type="StaticBody3D" parent="Level7"]
+[node name="Base" type="StaticBody3D" parent="Game/Level7"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 86, -9, -15)
 collision_layer = 4
 physics_material_override = SubResource("PhysicsMaterial_jfwmn")
 
-[node name="Spawn" parent="Level7/Base" instance=ExtResource("1_avimj")]
+[node name="Spawn" parent="Game/Level7/Base" instance=ExtResource("1_avimj")]
 level = 7
 transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 0, 0.5, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Level7/Base"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Game/Level7/Base"]
 gi_mode = 0
 mesh = SubResource("BoxMesh_3gkm3")
 skeleton = NodePath("../..")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Level7/Base"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Game/Level7/Base"]
 shape = SubResource("BoxShape3D_n1of8")
 
-[node name="TurnText" type="Label3D" parent="Level7"]
+[node name="TurnText" type="Label3D" parent="Game/Level7"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 86, -2.78923, 8)
 double_sided = false
 outline_render_priority = 0
@@ -667,49 +679,97 @@ font = ExtResource("3_x2udd")
 font_size = 200
 outline_size = 20
 
-[node name="Death" parent="Level7" instance=ExtResource("6_h3hx2")]
+[node name="Death" parent="Game/Level7" instance=ExtResource("6_h3hx2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 70, 0, -15)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Level7/Death"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Game/Level7/Death"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, -8)
 shape = SubResource("BoxShape3D_qqa8i")
 
-[node name="MovingPlatform" parent="Level7" instance=ExtResource("5_83d8i")]
-speed = 10.0
+[node name="MovingPlatform" parent="Game/Level7" instance=ExtResource("5_83d8i")]
+speed = 12.0
 distance = 10.0
-two_way = true
-transform = Transform3D(-1, 0, 1.39091e-08, 0, 1, 0, -1.39091e-08, 0, -1, 92.9894, -8, -15)
+transform = Transform3D(-1, 0, 1.39091e-08, 0, 1, 0, -1.39091e-08, 0, -1, 92.9894, -7, -15)
 physics_material_override = SubResource("PhysicsMaterial_f2s6r")
 
-[node name="Death" parent="Level7/MovingPlatform" instance=ExtResource("6_h3hx2")]
+[node name="Death" parent="Game/Level7/MovingPlatform" instance=ExtResource("6_h3hx2")]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Level7/MovingPlatform/Death"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Game/Level7/MovingPlatform/Death"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.25, 0, 1.90735e-06)
 shape = SubResource("BoxShape3D_ldsy6")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Level7/MovingPlatform/Death/CollisionShape3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Game/Level7/MovingPlatform/Death/CollisionShape3D"]
 mesh = SubResource("BoxMesh_shtb2")
 skeleton = NodePath("../../..")
 
-[node name="NormalPlatform" type="StaticBody3D" parent="Level7"]
+[node name="Death2" parent="Game/Level7/MovingPlatform" instance=ExtResource("6_h3hx2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19, 0, 7.62939e-06)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Game/Level7/MovingPlatform/Death2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.25, 0, 1.90735e-06)
+shape = SubResource("BoxShape3D_ldsy6")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Game/Level7/MovingPlatform/Death2/CollisionShape3D"]
+mesh = SubResource("BoxMesh_shtb2")
+skeleton = NodePath("../../..")
+
+[node name="Death3" parent="Game/Level7/MovingPlatform" instance=ExtResource("6_h3hx2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29, 9, 1.43051e-05)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Game/Level7/MovingPlatform/Death3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.25, 0, 1.90735e-06)
+shape = SubResource("BoxShape3D_ldsy6")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Game/Level7/MovingPlatform/Death3/CollisionShape3D"]
+mesh = SubResource("BoxMesh_shtb2")
+skeleton = NodePath("../../..")
+
+[node name="NormalPlatform" type="StaticBody3D" parent="Game/Level7"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 111, -8.75, -15)
 collision_layer = 4
 physics_material_override = SubResource("PhysicsMaterial_2lsvf")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Level7/NormalPlatform"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Game/Level7/NormalPlatform"]
 gi_mode = 0
 mesh = SubResource("BoxMesh_qkg3r")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Level7/NormalPlatform"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Game/Level7/NormalPlatform"]
 shape = SubResource("BoxShape3D_vxkam")
 
-[node name="Level8" type="Node3D" parent="."]
+[node name="NormalPlatform2" type="StaticBody3D" parent="Game/Level7"]
+transform = Transform3D(0.866025, -0.5, 0, 0.5, 0.866025, 0, 0, 0, 1, 217, 41, -15)
+collision_layer = 4
+physics_material_override = SubResource("PhysicsMaterial_2lsvf")
 
-[node name="Music" type="AudioStreamPlayer" parent="."]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Game/Level7/NormalPlatform2"]
+gi_mode = 0
+mesh = SubResource("BoxMesh_gayad")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Game/Level7/NormalPlatform2"]
+shape = SubResource("BoxShape3D_7rg3s")
+
+[node name="Level8" type="Node3D" parent="Game"]
+
+[node name="Base" type="StaticBody3D" parent="Game/Level8"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 308.5, 90.75, -15)
+collision_layer = 4
+physics_material_override = SubResource("PhysicsMaterial_jfwmn")
+
+[node name="Spawn" parent="Game/Level8/Base" instance=ExtResource("1_avimj")]
+level = 8
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 0, 0.5, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Game/Level8/Base"]
+gi_mode = 0
+mesh = SubResource("BoxMesh_3gkm3")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Game/Level8/Base"]
+shape = SubResource("BoxShape3D_n1of8")
+
+[node name="Music" type="AudioStreamPlayer" parent="Game"]
 stream = ExtResource("3_3vc3a")
 volume_db = 1.0
 autoplay = true
 
-[node name="GameUI" parent="." instance=ExtResource("8_ugsnl")]
-
-[connection signal="body_entered" from="Level5/NeoWall" to="Level5/NeoWall" method="on_touched"]
+[connection signal="body_entered" from="Game/Level5/NeoWall" to="Game/Level5/NeoWall" method="on_touched"]
