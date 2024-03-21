@@ -9,6 +9,8 @@ pub struct MovingPlatform {
      speed: f32,
     #[export]
     distance: f32,
+    #[export]
+    two_way: bool,
     home: Vector3,
 
 }
@@ -20,6 +22,7 @@ impl  IAnimatableBody3D for MovingPlatform {
         Self {
             base,
             speed: 1.0,
+            two_way: true,
             distance: 1.0,
             home: Vector3::ZERO,
         }
@@ -31,13 +34,9 @@ impl  IAnimatableBody3D for MovingPlatform {
         let new_pos = pos + Vector3::new(self.speed * delta as f32, 0.0, 0.0);
         
         
-        if (new_pos - self.home).length() > self.distance && self.speed > 0.0 || (new_pos - self.home).length() < 0.0 && self.speed < 0.0 {
+        if new_pos.x - self.home.x > self.distance && self.speed > 0.0 || new_pos.x - self.home.x <= if self.two_way {-self.distance} else {0.0} && self.speed < 0.0 {
             self.speed *= -1.0;
         }
-
-        godot_print!("new_pos: {:?}", new_pos);
-        godot_print!("home: {:?}", self.home);
-        godot_print!("distance: {:?}", (new_pos - self.home).length());
 
         let mut base = self.base_mut();
         base.set_position(new_pos);

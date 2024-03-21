@@ -1,4 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://crxnnhggvjm2n"]
+[gd_scene load_steps=5 format=3 uid="uid://crxnnhggvjm2n"]
+
+[ext_resource type="PackedScene" uid="uid://cdhfocva2bjlx" path="res://sprites/Death.tscn" id="1_nj852"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pg2oj"]
 albedo_color = Color(1, 0, 0, 1)
@@ -12,13 +14,12 @@ size = Vector3(1, 0.1, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_1oj7q"]
 size = Vector3(1, 0.1, 1)
 
-[node name="DeathTile" type="Death"]
-collision_layer = 2
+[node name="Node" type="Node3D"]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="Death" parent="." instance=ExtResource("1_nj852")]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Death"]
 mesh = SubResource("BoxMesh_qgpyh")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Death"]
 shape = SubResource("BoxShape3D_1oj7q")
-
-[connection signal="body_entered" from="." to="." method="on_touched"]

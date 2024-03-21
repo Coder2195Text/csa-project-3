@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://dw5wgqd4ymgi1"]
+
+[ext_resource type="Theme" uid="uid://iobit5f816ac" path="res://fonts/DefaultTheme.tres" id="1_ytatq"]
+
+[node name="GameUI" type="Node2D"]
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_left = 12.0
+offset_top = 12.0
+offset_right = 425.0
+offset_bottom = 165.0
+size_flags_horizontal = 8
+size_flags_vertical = 0
+theme = ExtResource("1_ytatq")
+text = "P for Pause Menu"

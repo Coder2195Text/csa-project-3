@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://cdhfocva2bjlx"]
+
+[node name="Death" type="Death"]
+collision_layer = 2
+
+[connection signal="body_entered" from="." to="." method="on_touched"]
