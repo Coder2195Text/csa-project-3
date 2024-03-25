@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=3 uid="uid://gxuo6hv0vat4"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_vso64"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4xqlh"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_0wn4j"]
+material = SubResource("StandardMaterial3D_4xqlh")
+
+[sub_resource type="GDScript" id="GDScript_pml4i"]
+script/source = "extends MeshInstance3D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	mesh = SphereMesh.new()
+	var material = StandardMaterial3D.new();
+	material.albedo_color = Color(randf_range(0.0,1.0),randf_range(0.0,1.0),randf_range(0.0,1.0))
+	print(material)
+	print(material.albedo_color)
+	self.mesh.material = material;
+	
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+"
+
+[node name="Ball" type="RigidBody3D"]
+collision_layer = 64
+collision_mask = 199
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_vso64")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_0wn4j")
+script = SubResource("GDScript_pml4i")

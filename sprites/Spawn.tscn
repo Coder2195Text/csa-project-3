@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://bjdyddpain5xj"]
+[gd_scene load_steps=9 format=3 uid="uid://bjdyddpain5xj"]
 
 [ext_resource type="Texture2D" uid="uid://mtyptplpwuam" path="res://textures/respawn.png" id="1_2jxpg"]
+[ext_resource type="AudioStream" uid="uid://b478dqfalad5l" path="res://sounds/checkpoint.mp3" id="2_a5pju"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c8lwy"]
 albedo_texture = ExtResource("1_2jxpg")
@@ -66,5 +67,9 @@ collision_base_size = 0.0
 visibility_aabb = AABB(-4, -6.75012, -4, 8, 13.5002, 8)
 process_material = SubResource("ParticleProcessMaterial_sl5l8")
 draw_pass_1 = SubResource("PlaneMesh_7drpd")
+
+[node name="Checkpoint" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_a5pju")
+volume_db = 10.0
 
 [connection signal="body_entered" from="." to="." method="on_touched"]

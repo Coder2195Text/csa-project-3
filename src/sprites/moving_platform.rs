@@ -6,19 +6,17 @@ use godot::prelude::*;
 pub struct MovingPlatform {
     base: Base<AnimatableBody3D>,
     #[export]
-     speed: f32,
+    speed: f32,
     #[export]
     distance: f32,
     #[export]
     two_way: bool,
     home: Vector3,
-
 }
 
 #[godot_api]
-impl  IAnimatableBody3D for MovingPlatform {
+impl IAnimatableBody3D for MovingPlatform {
     fn init(base: Base<AnimatableBody3D>) -> Self {
-
         Self {
             base,
             speed: 1.0,
@@ -32,9 +30,11 @@ impl  IAnimatableBody3D for MovingPlatform {
         let base = self.base();
         let pos = base.get_position();
         let new_pos = pos + Vector3::new(self.speed * delta as f32, 0.0, 0.0);
-        
-        
-        if new_pos.x - self.home.x > self.distance && self.speed > 0.0 || new_pos.x - self.home.x <= if self.two_way {-self.distance} else {0.0} && self.speed < 0.0 {
+
+        if new_pos.x - self.home.x > self.distance && self.speed > 0.0
+            || new_pos.x - self.home.x <= if self.two_way { -self.distance } else { 0.0 }
+                && self.speed < 0.0
+        {
             self.speed *= -1.0;
         }
 
@@ -50,5 +50,4 @@ impl MovingPlatform {
         godot_print!("ready");
         self.home = self.base().get_position();
     }
-    
 }

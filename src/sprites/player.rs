@@ -1,7 +1,8 @@
-use godot::engine::input::MouseMode;
-use godot::engine::{CharacterBody3D, ICharacterBody2D, InputEvent, InputEventMouseMotion};
+use godot::engine::{CharacterBody3D, Engine, ICharacterBody2D, InputEvent, InputEventMouseMotion};
 use godot::obj::WithBaseField;
 use godot::prelude::*;
+
+use crate::settings::SettingsSingleton;
 
 #[derive(GodotClass)]
 #[class(base=CharacterBody3D)]
@@ -26,12 +27,23 @@ impl ICharacterBody2D for Player {
     }
 
     fn input(&mut self, event: Gd<InputEvent>) {
+        let mut settings = Engine::singleton()
+            .get_singleton("SettingsSingleton".into())
+            .unwrap()
+            .try_cast::<SettingsSingleton>()
+            .unwrap();
+
+        let sensitivity = settings
+            .call("get_sensitivity".into(), &[])
+            .try_to::<f32>()
+            .unwrap();
+
         let mut base = self.base_mut();
         if let Ok(event) = event.try_cast::<InputEventMouseMotion>() {
-            base.rotate_y(event.get_relative().x * -0.005);
+            base.rotate_y(event.get_relative().x * -0.005 * sensitivity);
             let mut camera = base.get_node_as::<Camera3D>("Camera");
             let rot = camera.get_rotation_degrees().x;
-            let move_rot = event.get_relative().y * -0.01;
+            let move_rot = event.get_relative().y * -0.01 * sensitivity;
             if move_rot == 0.0 {
                 return;
             }

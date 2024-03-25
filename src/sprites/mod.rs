@@ -1,3 +1,4 @@
+pub mod ball_spawner;
 pub mod death;
 pub mod game_ui;
 pub mod moving_platform;

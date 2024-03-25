@@ -20,7 +20,14 @@ impl Spawn {
         let base = self.base();
         if let Ok(mut player) = body.try_cast::<Player>() {
             let result = player
-                .call("set_spawn".into(), &[Variant::from(base.get_global_position()), Variant::from(base.get_rotation()), Variant::from(self.level)])
+                .call(
+                    "set_spawn".into(),
+                    &[
+                        Variant::from(base.get_global_position()),
+                        Variant::from(base.get_rotation()),
+                        Variant::from(self.level),
+                    ],
+                )
                 .try_to::<bool>()
                 .unwrap();
             if result {
@@ -35,5 +42,7 @@ impl Spawn {
         let base = self.base_mut();
         base.get_node_as::<GpuParticles3D>("Confetti")
             .set_emitting(true);
+
+        base.get_node_as::<AudioStreamPlayer>("Checkpoint").play();
     }
 }

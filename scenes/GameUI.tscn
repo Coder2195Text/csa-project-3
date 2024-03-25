@@ -1,19 +1,109 @@
-[gd_scene load_steps=2 format=3 uid="uid://dw5wgqd4ymgi1"]
+[gd_scene load_steps=7 format=3 uid="uid://dw5wgqd4ymgi1"]
 
 [ext_resource type="Theme" uid="uid://iobit5f816ac" path="res://fonts/DefaultTheme.tres" id="1_ytatq"]
 
-[node name="GameUI" type="Node2D"]
+[sub_resource type="Gradient" id="Gradient_4kqxp"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 0.470588)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_4biey"]
+gradient = SubResource("Gradient_4kqxp")
+
+[sub_resource type="GDScript" id="GDScript_5bggw"]
+script/source = "extends RichTextLabel
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	self.text = \"Mouse Sensitivity: %.2f\" % SettingsSingleton.sensitivity;
+"
+
+[sub_resource type="GDScript" id="GDScript_8t2bb"]
+script/source = "extends HSlider
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	SettingsSingleton.sensitivity = self.value;
+"
+
+[sub_resource type="GDScript" id="GDScript_73k48"]
+script/source = "extends Button
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+	
+func _pressed():
+	SettingsSingleton.toggle_pause();
+"
+
+[node name="GameUI" type="GameUI"]
 process_mode = 3
-position = Vector2(2, 0)
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
-offset_left = 12.0
-offset_top = 12.0
-offset_right = 194.0
-offset_bottom = 74.0
+layout_mode = 1
+offset_right = 200.0
+offset_bottom = 100.0
 size_flags_horizontal = 8
 size_flags_vertical = 0
 theme = ExtResource("1_ytatq")
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
 text = "P for Menu"
 
 [node name="Menu" type="Node2D" parent="."]
+
+[node name="ColorRect" type="Sprite2D" parent="Menu"]
+z_index = -500
+z_as_relative = false
+scale = Vector2(20, 3386.48)
+texture = SubResource("GradientTexture1D_4biey")
+
+[node name="Text" type="RichTextLabel" parent="Menu"]
+offset_left = 417.0
+offset_top = 162.0
+offset_right = 748.0
+offset_bottom = 286.0
+size_flags_horizontal = 6
+size_flags_vertical = 6
+theme = ExtResource("1_ytatq")
+text = "Sensitivity:"
+fit_content = true
+script = SubResource("GDScript_5bggw")
+
+[node name="HSlider" type="HSlider" parent="Menu/Text"]
+layout_mode = 0
+offset_top = 25.0
+offset_right = 300.0
+offset_bottom = 105.0
+min_value = 0.1
+max_value = 2.0
+step = 0.01
+value = 1.0
+script = SubResource("GDScript_8t2bb")
+
+[node name="Button" type="Button" parent="Menu"]
+offset_left = 524.0
+offset_top = 572.0
+offset_right = 644.0
+offset_bottom = 620.0
+theme = ExtResource("1_ytatq")
+text = "Unpause"
+script = SubResource("GDScript_73k48")

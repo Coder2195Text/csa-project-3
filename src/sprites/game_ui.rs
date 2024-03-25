@@ -1,30 +1,30 @@
 use godot::engine::input::MouseMode;
-use godot::engine::{Engine, ICharacterBody2D, InputEvent, InputEventMouseMotion, Node2D};
+use godot::engine::{Control, Engine, IControl};
 use godot::obj::WithBaseField;
 use godot::prelude::*;
 
 use crate::settings::SettingsSingleton;
 
 #[derive(GodotClass)]
-#[class(base=Node2D)]
+#[class(base=Control)]
 pub struct GameUI {
-    base: Base<Node2D>,
+    base: Base<Control>,
 }
 
 #[godot_api]
-impl INode2D for GameUI {
-    fn init(base: Base<Node2D>) -> Self {
+impl IControl for GameUI {
+    fn init(base: Base<Control>) -> Self {
         Self { base }
     }
 
-    fn process(&mut self, delta: f64) {
+    fn process(&mut self, _delta: f64) {
         let mut input = Input::singleton();
         let mut settings = Engine::singleton()
             .get_singleton("SettingsSingleton".into())
             .unwrap()
             .try_cast::<SettingsSingleton>()
             .unwrap();
-        if input.is_action_just_pressed("paused".into()) {
+        if input.is_action_just_pressed("pause".into()) {
             settings.call("toggle_pause".into(), &[]);
         }
 
@@ -33,14 +33,18 @@ impl INode2D for GameUI {
             .try_to::<bool>()
             .unwrap();
 
-        // write menu code
+        self.base().get_tree().unwrap().set_pause(paused);
+
+        let mut menu = self.base().get_node_as::<Node2D>("Menu");
 
         if paused {
+            menu.show();
             input.set_mouse_mode(MouseMode::VISIBLE);
         } else {
+            menu.hide();
             input.set_mouse_mode(MouseMode::CAPTURED);
         }
     }
 
-    fn physics_process(&mut self, delta: f64) {}
+    fn physics_process(&mut self, _delta: f64) {}
 }
