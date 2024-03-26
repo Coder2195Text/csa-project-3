@@ -1,4 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://gxuo6hv0vat4"]
+[gd_scene load_steps=6 format=3 uid="uid://gxuo6hv0vat4"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_v7cne"]
+friction = 0.0
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_vso64"]
 
@@ -10,23 +13,32 @@ material = SubResource("StandardMaterial3D_4xqlh")
 [sub_resource type="GDScript" id="GDScript_pml4i"]
 script/source = "extends MeshInstance3D
 
-
+var home: Vector3;
+var parent;
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	mesh = SphereMesh.new()
 	var material = StandardMaterial3D.new();
+	mesh.radius = 1; mesh.height=2;
 	material.albedo_color = Color(randf_range(0.0,1.0),randf_range(0.0,1.0),randf_range(0.0,1.0))
 	self.mesh.material = material;
+	parent = self.get_parent();
+	home = parent.position;
+	
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass
+	if (parent.position.y < -30): 
+		parent.position = home
+		
+	
 "
 
 [node name="Ball" type="RigidBody3D"]
 collision_layer = 64
 collision_mask = 199
+physics_material_override = SubResource("PhysicsMaterial_v7cne")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_vso64")

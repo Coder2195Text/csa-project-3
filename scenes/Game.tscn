@@ -141,7 +141,7 @@ size = Vector3(0.5, 15, 3)
 [sub_resource type="PlaneMesh" id="PlaneMesh_donik"]
 material = SubResource("StandardMaterial3D_va2iw")
 flip_faces = true
-size = Vector2(100, 100)
+size = Vector2(100, 160)
 orientation = 0
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_71w62"]
@@ -166,7 +166,6 @@ shadow_enabled = true
 directional_shadow_mode = 1
 
 [node name="Player" parent="Game" instance=ExtResource("3_7777k")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 308.75, 93.5, -16.25)
 rotation_order = 1
 top_level = true
 collision_mask = 52
@@ -800,43 +799,55 @@ skeleton = NodePath("../..")
 shape = SubResource("BoxShape3D_n1of8")
 
 [node name="WallCover" type="MeshInstance3D" parent="Game/Level8"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 314, 41.25, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 341, 11.25, 0)
 mesh = SubResource("PlaneMesh_donik")
 
 [node name="Balls" type="BallSpawner" parent="Game/Level8"]
-balls = 150
+balls = 75
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 324.5, 92.25, -7.5)
 
 [node name="Balls2" type="BallSpawner" parent="Game/Level8"]
-balls = 150
+balls = 75
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 342.5, 92.25, 1)
 
 [node name="Balls3" type="BallSpawner" parent="Game/Level8"]
-balls = 150
+balls = 75
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 316.75, 92.25, -15)
 
 [node name="Balls4" type="BallSpawner" parent="Game/Level8"]
-balls = 150
+balls = 75
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 348.75, 92.25, -2.5)
 
 [node name="Balls5" type="BallSpawner" parent="Game/Level8"]
-balls = 150
+balls = 75
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 332, 92.25, -5)
 
 [node name="Balls6" type="BallSpawner" parent="Game/Level8"]
-balls = 150
+balls = 75
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 318.684, 92.25, -1.85887)
 
 [node name="Balls7" type="BallSpawner" parent="Game/Level8"]
-balls = 150
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 348.442, 92.25, -8.1222)
+balls = 75
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 348.442, 96.968, -3.44183)
+
+[node name="Balls8" type="BallSpawner" parent="Game/Level8"]
+balls = 75
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 339.156, 96.968, 4.34956)
+
+[node name="Balls9" type="BallSpawner" parent="Game/Level8"]
+balls = 75
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 327.249, 96.968, -12.8797)
+
+[node name="WallCover2" type="MeshInstance3D" parent="Game/Level8"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 313.5, 11.25, 0)
+mesh = SubResource("PlaneMesh_donik")
 
 [node name="Maze" type="StaticBody3D" parent="Game"]
 transform = Transform3D(-5.96046e-08, 0, -1, 0, 1, 0, 1, 0, -5.96046e-08, 323.5, 91.25, -10)
 collision_layer = 4
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Game/Maze"]
-transform = Transform3D(1, -8.47033e-22, -3.55271e-15, 0, 3.24, -4.37114e-08, 0, 1.41625e-07, 1, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, -4.37114e-08, 0, 4.37114e-08, 1, 0, 0, 0)
 shape = SubResource("ConcavePolygonShape3D_71w62")
 
 [node name="Maze" parent="Game/Maze" instance=ExtResource("8_l2xd7")]
@@ -883,11 +894,34 @@ skeleton = NodePath("../..")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Game/Level9/Base"]
 shape = SubResource("BoxShape3D_n1of8")
 
-[node name="Label3D" type="Label3D" parent="Game/Level9/Base"]
+[node name="Troll" type="Label3D" parent="Game/Level9/Base"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 31.25, -36.75, 0)
 visibility_range_end = 40.0
+double_sided = false
 modulate = Color(0, 0, 0, 1)
 text = "Spawn was behind you you noob"
+font = ExtResource("3_x2udd")
+font_size = 300
+outline_size = 50
+
+[node name="Win" type="Label3D" parent="Game/Level9/Base"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -3.75, 2.95723, 0)
+visibility_range_end = 40.0
+double_sided = false
+modulate = Color(0, 0, 0, 1)
+text = "Congratulations on Speedrunning the Obby.
+If you are first to finish, let Justin know
+so you can get free 5 on your project."
+font = ExtResource("3_x2udd")
+font_size = 120
+outline_size = 10
+
+[node name="Troll2" type="Label3D" parent="Game/Level9/Base"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -3.75, -36.75, 0)
+visibility_range_end = 40.0
+double_sided = false
+modulate = Color(0, 0, 0, 1)
+text = "Spawn was up there you noob"
 font = ExtResource("3_x2udd")
 font_size = 300
 outline_size = 50
