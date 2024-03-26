@@ -161,6 +161,7 @@ environment = SubResource("Environment_6rin4")
 [node name="Light" type="DirectionalLight3D" parent="Game"]
 transform = Transform3D(0.939693, 0.296198, -0.17101, 0, 0.5, 0.866025, 0.34202, -0.813798, 0.469846, 0, 1000, 0)
 light_energy = 0.4
+light_bake_mode = 1
 shadow_enabled = true
 directional_shadow_mode = 1
 
@@ -821,6 +822,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 348.75, 92.25, -2.5)
 [node name="Balls5" type="BallSpawner" parent="Game/Level8"]
 balls = 150
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 332, 92.25, -5)
+
+[node name="Balls6" type="BallSpawner" parent="Game/Level8"]
+balls = 150
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 318.684, 92.25, -1.85887)
+
+[node name="Balls7" type="BallSpawner" parent="Game/Level8"]
+balls = 150
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 348.442, 92.25, -8.1222)
 
 [node name="Maze" type="StaticBody3D" parent="Game"]
 transform = Transform3D(-5.96046e-08, 0, -1, 0, 1, 0, 1, 0, -5.96046e-08, 323.5, 91.25, -10)

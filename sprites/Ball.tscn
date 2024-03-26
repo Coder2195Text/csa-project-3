@@ -16,8 +16,6 @@ func _ready():
 	mesh = SphereMesh.new()
 	var material = StandardMaterial3D.new();
 	material.albedo_color = Color(randf_range(0.0,1.0),randf_range(0.0,1.0),randf_range(0.0,1.0))
-	print(material)
-	print(material.albedo_color)
 	self.mesh.material = material;
 	
 
